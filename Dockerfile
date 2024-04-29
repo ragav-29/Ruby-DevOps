@@ -1,25 +1,20 @@
-FROM ruby:3.1.2
+# Use the official Ruby image
+FROM ruby:latest
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the Gemfile and Gemfile.lock into the container
+# Copy Gemfile and Gemfile.lock to the container
 COPY Gemfile Gemfile.lock ./
 
-# Install Bundler and dependencies
-RUN gem install bundler:2.3.6
+# Install dependencies using Bundler
 RUN bundle install
-RUN bundle exec rails db:create
-RUN bundle exec rails db:migrate
 
-# Copy the rest of the application code into the container
+# Copy the rest of the application code to the container
 COPY . .
 
-# Install Node.js dependencies
-RUN apt-get update && apt-get install -y nodejs
-
-# Expose the port on which the application will run
+# Expose port 3000 to the outside world
 EXPOSE 3000
 
-# Start the Rails application
+# Command to start the Rails server
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
