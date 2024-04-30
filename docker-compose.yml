@@ -12,7 +12,6 @@ services:
       DATABASE_URL: postgresql://devops_user:devops_password@db:5432/devops_development
     volumes:
       - .:/app
-    command: bash -c "bundle exec rails s -b '0.0.0.0'"
   
   db:
     image: postgres:14.11
