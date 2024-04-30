@@ -14,7 +14,7 @@ services:
     command: bash -c "bundle exec rails s -b '0.0.0.0'"
   
   db:
-    image: postgres:latest
+    image: postgres:14.1
     environment:
       POSTGRES_DB: devops_development
       POSTGRES_USER: devops_user
