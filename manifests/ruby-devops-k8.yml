@@ -1,0 +1,35 @@
+ cat budget-app-web.yaml
+# budget-app-web.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ruby-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ruby-web-app
+  template:
+    metadata:
+      labels:
+        app: ruby-web-app
+    spec:
+      containers:
+        - name: ruby-web-app
+          image: ragav029596/ruby-devops-project:latest
+          ports:
+            - containerPort: 3030
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ruby-web-app-service
+spec:
+  selector:
+    app: budget-app-web
+  ports:
+    - protocol: TCP
+      port: 3030  # Use a specific port for NodePort
+      targetPort: 3030
+  type: NodePort
